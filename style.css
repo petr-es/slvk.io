@@ -105,6 +105,10 @@ a:hover { opacity: .7; }
 
 /* --- Hero ---------------------------------------------------------------- */
 .hero {
+  /* One spacing value above and below the headline, so the eyebrow → headline
+     and headline → buttons gaps always match. Mobile overrides it in the
+     820px block. */
+  --hero-gap: 38px;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -120,7 +124,7 @@ a:hover { opacity: .7; }
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--ink-subtle);
-  margin-bottom: 26px;
+  margin-bottom: var(--hero-gap);
 }
 
 .h1 {
@@ -128,40 +132,43 @@ a:hover { opacity: .7; }
   margin: 0;
   font-family: var(--font-serif);
   font-weight: 500;
-  font-size: 68px;
+  /* Fluid size instead of breakpoints: scales linearly from 48px at a 440px
+     viewport to 68px at 820px (the sizes the old breakpoints used) and holds
+     at those values outside that range.
+     Slope 20px / 380px = 5.263vw; offset 48px - 5.263% of 440px = 24.84px. */
+  font-size: clamp(48px, 24.84px + 5.263vw, 68px);
   line-height: 1.14;
   letter-spacing: -0.01em;
 }
 
 .h1-accent { color: var(--ink-faint); font-style: italic; }
 
-.hero-lead {
-  --delay: .32s;
-  max-width: 520px;
-  margin: 20px 0 0;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.65;
-  color: var(--ink-muted);
-}
-
+/* The buttons split a 440px row equally (flex: 1), so both come out the same
+   width whatever their label length; on phones they stack instead (see the
+   440px block). The CTA takes over the .32s stagger slot the removed lead
+   paragraph used, so it follows the headline without a pause. */
 .cta {
-  --delay: .44s;
-  margin-top: 38px;
+  --delay: .32s;
+  max-width: 440px;
+  margin-top: var(--hero-gap);
   display: flex;
   gap: 12px;
 }
+.cta .btn { flex: 1; }
 
 /* --- Buttons ------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
+  padding: 16px 24px;
   font-size: 12px;
   letter-spacing: .04em;
   text-transform: uppercase;
-  border-radius: 2px;
+  /* Any radius larger than half the height gives a pill with fully round
+     ends; 999px holds regardless of button size, unlike 50% which would
+     turn wide buttons into ellipses. */
+  border-radius: 999px;
 }
 
 .btn-primary { background: var(--ink); color: var(--ink-inverse); }
@@ -179,11 +186,7 @@ a:hover { opacity: .7; }
   .wrap { padding: 0 28px !important; }
   [data-menu] { padding: 16px 0 !important; }
 
-  .hero { min-height: 100dvh; }
-  .hero-eyebrow { margin-bottom: 18px; }
-  .h1 { font-size: 48px; line-height: 1.16; }
-  .hero-lead { font-size: 16px; margin-top: 12px; }
-  .cta { margin-top: 28px; }
+  .hero { min-height: 100dvh; --hero-gap: 28px; }
 
   .nav { display: none !important; }
   .burger {
@@ -215,7 +218,8 @@ a:hover { opacity: .7; }
 @media (max-width: 440px) {
   .wrap { padding: 0 22px !important; }
   .soon-btn { display: none !important; }
-  .h1 { font-size: 48px; }
+  /* Too narrow for two buttons side by side: stack them full-width. */
+  .cta { flex-direction: column; }
   .mobile-menu { padding-left: 22px !important; padding-right: 22px !important; }
 }
 
