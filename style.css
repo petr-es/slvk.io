@@ -105,9 +105,9 @@ a:hover { opacity: .7; }
 
 /* --- Hero ---------------------------------------------------------------- */
 .hero {
-  /* One spacing value above and below the headline, so the eyebrow → headline
-     and headline → buttons gaps always match. Mobile overrides it in the
-     820px block. */
+  /* One spacing value above the headline and above the buttons, so the
+     eyebrow → headline and body text → buttons gaps always match. Mobile
+     overrides it in the 820px block. */
   --hero-gap: 38px;
   min-height: 100vh;
   display: flex;
@@ -143,12 +143,21 @@ a:hover { opacity: .7; }
 
 .h1-accent { color: var(--ink-faint); font-style: italic; }
 
+.hero-lead {
+  --delay: .32s;
+  max-width: 600px;
+  margin: 20px 0 0;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+}
+
 /* The buttons split a 440px row equally (flex: 1), so both come out the same
    width whatever their label length; on phones they stack instead (see the
-   440px block). The CTA takes over the .32s stagger slot the removed lead
-   paragraph used, so it follows the headline without a pause. */
+   440px block). */
 .cta {
-  --delay: .32s;
+  --delay: .44s;
   max-width: 440px;
   margin-top: var(--hero-gap);
   display: flex;
@@ -187,6 +196,7 @@ a:hover { opacity: .7; }
   [data-menu] { padding: 16px 0 !important; }
 
   .hero { min-height: 100dvh; --hero-gap: 28px; }
+  .hero-lead { font-size: 15px; margin-top: 12px; }
 
   .nav { display: none !important; }
   .burger {
