@@ -383,7 +383,9 @@ window.createPageComponent = function (DCLogic, React) {
       window.addEventListener('scroll', this._onScroll, { passive: true });
 
       const start = Date.now();
-      const duration = 900;
+      // Loader counter length in ms; the loader then holds at 100% for 150ms
+      // (minDelay below) and waits for fonts before the page fades in.
+      const duration = 600;
       this._pctTimer = setInterval(() => {
         const t = Math.min(1, (Date.now() - start) / duration);
         this.setState({ pct: Math.round(t * 100) });
