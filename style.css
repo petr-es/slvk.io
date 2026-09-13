@@ -159,7 +159,7 @@ a:hover { opacity: .7; }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity .6s ease, visibility .6s ease;
+  transition: opacity .4s ease, visibility .4s ease;
 }
 .loader[data-state="hidden"] { opacity: 0; visibility: hidden; pointer-events: none; }
 .loader-ring { position: relative; width: 72px; height: 72px; }
